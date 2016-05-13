@@ -1,0 +1,33 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+    .centeredPrompt
+      .centeredPrompt__item.centeredPromptLabel
+        h1 Welcome to PLØ 1!
+
+      .tabs
+        .tab.is-tab-selected
+          h2 Features
+        .tab
+          h2 Examples
+        .tab
+          h2 About
+    .contents
+      .sideBar
+        .sideBar__section
+          .sideBar__item.is-side-bar-item-selected Example 1
+          .sideBar__item Example 2
+      .div
+        block content
+        h2 Editor
+        #editor
+
+  script(src="/javascripts/src-noconflict/ace.js" type="text/javascript" charset="utf-8")
+  script.
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/solarized_dark");
+    editor.getSession().setMode("ace/mode/haskell");
+    editor.setFontSize(30);
