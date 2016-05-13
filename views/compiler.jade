@@ -1,0 +1,32 @@
+extends layout
+
+block content
+  .contents
+    .sideBar
+      .sideBar__section
+        .sideBar__item.selected.example Example 1
+        .sideBar__item.example Example 2
+    div
+      .contents
+        .leftCode
+          .contents
+            .rightAlign
+              p Introduce algún código
+            .leftAlign
+              button(type="button").btn#load Load 
+              button(type="button").btn#run Run 
+            
+          #editor.codeEditor
+        .rightTree
+          p Arbol generado:
+          #treeGenerate
+      .results
+        h3 Código generado
+        #resultCode.codeEditor
+        
+        
+      
+
+block otherScripts
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js", charset="utf-8")
+  script(src="/javascripts/App.js" charset="utf-8")

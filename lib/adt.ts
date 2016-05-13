@@ -1,5 +1,5 @@
 
-class Base {
+export class Base {
     location : Location
     // Location of code in file
     // Childrens, descendents of Abstract Data Tree
@@ -15,7 +15,7 @@ class Base {
 }
 
 // Basic program is a list of blocks
-class Program extends Base {
+export class Program extends Base {
     name : String
     block : Block
 
@@ -31,7 +31,7 @@ class Program extends Base {
 }
 
 // BEGIN Block
-class Block extends Base {
+export class Block extends Base {
     variables : [Var]
     constants : [Const]
     functions : [Function]
@@ -46,7 +46,7 @@ class Block extends Base {
     }
 }
 
-class Const extends Base {
+export class Const extends Base {
     name : String
     value : Object
     type : String
@@ -58,7 +58,7 @@ class Const extends Base {
     }
 }
 
-class Var extends Base {
+export class Var extends Base {
     name : String
     value : Object
     type : String
@@ -70,22 +70,20 @@ class Var extends Base {
     }
 }
 
-class FunctionBlock extends Base {
+export class FunctionBlock extends Block {
     name : String
     params : [String]
-    block : Block
 
-    constructor(location, name, params, block) {
-      super(location)
+    constructor(location, name, params, block : Block) {
+      super(location, block.variables, block.constants, block.functions, block.main)
       this.name = name
       this.params = params
-      this.block = block
     }
 }
 // END Block
 
 // BEGIN Statament
-class Compound extends Base {
+export class Compound extends Base {
     statements : [Object]
 
     constructor(location, statements) {
@@ -94,7 +92,7 @@ class Compound extends Base {
     }
 }
 
-class Assign extends Base {
+export class Assign extends Base {
     name : String
     value : Object
 
@@ -105,7 +103,7 @@ class Assign extends Base {
     }
 }
 
-class IfThenElse extends Base {
+export class IfThenElse extends Base {
     cond : Object
     thenSt : Object
     elseSt : Object
@@ -118,7 +116,7 @@ class IfThenElse extends Base {
     }
 }
 
-class While extends Base {
+export class While extends Base {
     cond : Object
     statement : Object
 
@@ -129,7 +127,7 @@ class While extends Base {
     }
 }
 
-class Return extends Base {
+export class Return extends Base {
     returnSt : Object | void
     constructor(location, returnSt) {
       super(location)
@@ -137,7 +135,7 @@ class Return extends Base {
     }
 }
 
-class Operation extends Base {
+export class Operation extends Base {
     operation : String
     operands : [Operation]
 
@@ -148,7 +146,18 @@ class Operation extends Base {
     }
 }
 
-class Literal extends Base {
+export class Apply extends Base {
+    name : String
+    params : [Object]
+
+    constructor(location, name, params) {
+      super(location)
+      this.name = name
+      this.params = params
+    }
+}
+
+export class Literal extends Base {
     value : Object
     type : String
 

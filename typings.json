@@ -1,0 +1,8 @@
+{
+  "ambientDependencies": {
+    "ace": "registry:dt/ace#0.0.0+20160317120654",
+    "chai": "registry:dt/chai#3.4.0+20160317120654",
+    "jquery": "registry:dt/jquery#1.10.0+20160417213236",
+    "mocha": "registry:dt/mocha#2.2.5+20160317120654"
+  }
+}
