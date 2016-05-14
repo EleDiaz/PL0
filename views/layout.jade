@@ -13,20 +13,19 @@ mixin selectedTab(name)
 doctype html
 html(lang='es')
   head
-    title= title
+    title PLØ - #{select}
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
     .centeredPrompt
       .centeredPrompt__item.centeredPromptLabel
-        h1 Welcome to PLØ 1 "#{title}"!
+        h1 Welcome to PLØ!
 
       .tabs
         +selectedTab('Features')
         +selectedTab('Examples')
         +selectedTab('About')
 
-    block content
+      block content
 
-  script(src="/javascripts/src-noconflict/ace.js" charset="utf-8")
   block otherScripts
   //

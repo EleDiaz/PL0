@@ -2,24 +2,42 @@
 
 // SymbolTable [id, type]
 // { vars:[string, "type"] }
+import ADT = require('./adt')
 
-let addToSymbol = (symbolTable, elem, type) => {
-    if (symbolTable[elem]) {
+interface ISymbol {
+  value : Object
+  id : string
+  symbolTable? : SymbolTable
+}
+
+class SymbolTable {
+  symbolTable : {}
+  father : SymbolTable
+
+  constructor() {
+    this.symbolTable = {}
+    this.father = null
+  }
+
+  addToSymbol(elem : Object, type : string) {
+    if (this.symbolTable[elem["name"]]) {
         console.log("Warning: Overwriting variable");
     }
-    symbolTable[elem] = type;
-};
-
-let semantic = (tree) => {
-    let baseSymbolTable = {};
-    eachBlockPre(tree, generateSymbolTable, baseSymbolTable) };
-
-let generateSymbolTable = (block, symbolTable) => {
-    block.variables.map((varE) => addToSymbol(symbolTable, block, symbolTable));
-    block.constants.map((varE) => addToSymbol(symbolTable, block, symbolTable));
-};
-
-export let eachBlockPre = (tree, callbackAction, args) => {
-    callbackAction(tree, args);
-    tree.functions.map((value) => eachBlockPre(value, callbackAction, args));
+    this.symbolTable[elem["name"]] = type //Object.create(elem.name, {type: type})
+  }
 }
+
+export let semantic = (tree : ADT.Program) => {
+  tree.eachBlockPre(generateSymbolTable, null)
+};
+
+let generateSymbolTable = (block : ADT.Block, symbolTable) : SymbolTable => {
+    let baseSymbolTable = new SymbolTable()
+    symbolTable && (baseSymbolTable.father = symbolTable)
+    block.variables.map((varE) => baseSymbolTable.addToSymbol(varE, "Var"))
+    block.constants.map((varE) => baseSymbolTable.addToSymbol(varE, "Const"))
+    block.functions.map((varE) => baseSymbolTable.addToSymbol(varE, "Function"))
+    block["symbolTable"] = baseSymbolTable;
+    console.log(baseSymbolTable)
+    return baseSymbolTable
+};

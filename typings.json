@@ -2,7 +2,10 @@
   "ambientDependencies": {
     "ace": "registry:dt/ace#0.0.0+20160317120654",
     "chai": "registry:dt/chai#3.4.0+20160317120654",
+    "codemirror": "registry:dt/codemirror#0.0.0+20160423074321",
+    "jade": "registry:dt/jade#0.0.0+20160316155526",
     "jquery": "registry:dt/jquery#1.10.0+20160417213236",
-    "mocha": "registry:dt/mocha#2.2.5+20160317120654"
+    "mocha": "registry:dt/mocha#2.2.5+20160317120654",
+    "node": "registry:dt/node#4.0.0+20160509154515"
   }
 }

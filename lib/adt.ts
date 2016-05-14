@@ -1,8 +1,7 @@
 
 export class Base {
-    location : Location
     // Location of code in file
-    // Childrens, descendents of Abstract Data Tree
+    location : Location
     constructor(location) {
       this.location = location;
     }
@@ -14,27 +13,11 @@ export class Base {
     }
 }
 
-// Basic program is a list of blocks
-export class Program extends Base {
-    name : String
-    block : Block
-
-    constructor(location, block : Block) {
-      super(location)
-      this.name = "$main"
-      this.block = block
-    }
-
-    generateCode() : String {
-      return "Program"
-    }
-}
-
 // BEGIN Block
 export class Block extends Base {
     variables : [Var]
     constants : [Const]
-    functions : [Function]
+    functions : [FunctionBlock]
     main : Block
 
     constructor(location, variables, constants, functions, main) {
@@ -43,6 +26,25 @@ export class Block extends Base {
       this.constants = constants
       this.functions = functions
       this.main = main
+    }
+
+    eachBlockPre(callbackAction : (program : Block, any) => any, args : any) {
+      let newArgs = callbackAction(this, args)
+      this.functions.map(fun => fun.eachBlockPre(callbackAction, newArgs))
+     }
+}
+
+// Basic program is a list of blocks
+export class Program extends Block {
+    name : String
+
+    constructor(location, block : Block) {
+      super(location, block.variables, block.constants, block.functions, block.main)
+      this.name = "$main"
+    }
+
+    generateCode() : String {
+      return "Program"
     }
 }
 

@@ -3,9 +3,14 @@ extends layout
 block content
   .contents
     .sideBar
-      .sideBar__section
+      .sideBar__section#fileStaticExample
+        .sideBar__item Ejemplos por defecto
         .sideBar__item.selected.example Example 1
         .sideBar__item.example Example 2
+      .sideBar__section
+        .sideBar__item Ejemplos guardados
+        #fileServerExample
+
     div
       .contents
         .leftCode
@@ -28,5 +33,7 @@ block content
       
 
 block otherScripts
+  script(src="/javascripts/src-noconflict/ace.js" charset="utf-8")
   script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js", charset="utf-8")
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/jade/1.11.0/jade.min.js", charset="utf-8")
   script(src="/javascripts/App.js" charset="utf-8")

@@ -1,8 +1,16 @@
+var a;
+
+function ups(); {
+  return 5;
+};
+
+function hola(); {
+  while(5) do {};
+};
 
 function hola(); {
   5+5
 };
-
-while (a < 5) do {
- a = a+;
+{
+if 0 then 0 else 0
 }
