@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node --harmony_destructuring ./bin/www",
-    "test" : "mocha --harmony_destructuring"
+    "test": "mocha --harmony_destructuring"
   },
   "dependencies": {
     "debug": "~2.2.0",
@@ -16,6 +16,8 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "node-sass-middleware": "^0.9.8"
+    "node-sass-middleware": "^0.9.8",
+    "typescript": "^1.8.10",
+    "typings": "^1.0.4"
   }
 }
