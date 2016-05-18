@@ -5,6 +5,15 @@ import * as semantic from '../lib/semantic'
 import * as ADT from '../lib/adt'
 var PEG = require('../lib/pl0.js')
 
+export let compileToAST = (text : String) : ADT.Program => {
+  try {
+    return PEG.parse(text)
+  }
+  catch(e) {
+    return e.toString()
+  }
+}
+
 export let compile = (text : String) : string => {
   try {
     var r = PEG.parse(text);

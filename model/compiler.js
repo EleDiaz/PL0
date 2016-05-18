@@ -1,8 +1,16 @@
 "use strict";
-var util = require('util');
-var semantic = require('../lib/semantic');
+const util = require('util');
+const semantic = require('../lib/semantic');
 var PEG = require('../lib/pl0.js');
-exports.compile = function (text) {
+exports.compileToAST = (text) => {
+    try {
+        return PEG.parse(text);
+    }
+    catch (e) {
+        return e.toString();
+    }
+};
+exports.compile = (text) => {
     try {
         var r = PEG.parse(text);
         semantic.semantic(r);

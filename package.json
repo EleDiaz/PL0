@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node --harmony_destructuring ./bin/www"
+    "start": "node --harmony_destructuring ./bin/www",
+    "test" : "mocha --harmony_destructuring"
   },
   "dependencies": {
     "debug": "~2.2.0",
@@ -14,6 +15,7 @@
     "serve-favicon": "~2.3.0"
   },
   "devDependencies": {
+    "chai": "^3.5.0",
     "node-sass-middleware": "^0.9.8"
   }
 }
