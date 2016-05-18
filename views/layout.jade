@@ -16,6 +16,13 @@ html(lang='es')
     title PLØ - #{select}
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
+    .siteHeader
+      .siteHeader__section
+        label Usuario
+        input(type:"text", name:"username", placeholder="Usuario")
+        label Contraseña
+        input(type:"password", name:"password", placeholder="Contraseña")
+    #container.col
     .centeredPrompt
       .centeredPrompt__item.centeredPromptLabel
         h1 Welcome to PLØ!

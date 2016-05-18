@@ -3,11 +3,13 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var sassMiddleware = require('node-sass-middleware');
+var users = require('login-mongo');
 
 var home = require('./routes/index');
 var example = require('./routes/example');
 var about = require('./routes/about');
 var compile = require('./routes/compile');
+var user = require('./routes/users');
 
 var app = express();
 
