@@ -15,6 +15,9 @@ class App {
         this.resultCode = ace.edit("resultCode");
         this.setUpEditor(this.resultCode);
         this.resultCode.setReadOnly(true);
+        this.resultCode.setValue("// Escriba un código y ejecute el compilador.");
+        this.editor.resize();
+        this.resultCode.resize();
         // TODO: this.setUpJade()
         this.changeExamples();
         this.setUpRunButton();
@@ -23,9 +26,14 @@ class App {
         $("#fileServerExample").html(template({ examples: ["file1", "file2"] }));
     }
     setUpEditor(editor) {
-        editor.setTheme("ace/theme/solarized_dark");
-        editor.getSession().setMode("ace/mode/haskell");
-        editor.setFontSize("20px");
+        editor.setTheme("ace/theme/eclipse");
+        //editor.setTheme("ace/theme/merbivore");
+        editor.getSession().setMode("ace/mode/javascript");
+        editor.setFontSize("12px");
+        editor.setShowPrintMargin(false);
+        editor.setDisplayIndentGuides(true);
+        editor.setHighlightActiveLine(true);
+        editor.$blockScrolling = Infinity
     }
     setUpRunButton() {
         $("#run").click(() => {
@@ -33,8 +41,7 @@ class App {
                 console.log("Saved in localStorage");
                 window.localStorage.setItem(NAME_STORAGE, this.editor.getValue());
             }
-            this.resultCode.setValue("");
-            $("#resultCode").hide();
+            //$("#resultCode").hide();
             $.get("/compile", { file: this.editor.getValue() }, (data, status) => {
                 if (typeof (data.result) == 'string') {
                     this.resultCode.setValue(data.result);

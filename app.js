@@ -3,7 +3,7 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var sassMiddleware = require('node-sass-middleware');
-var users = require('login-mongo');
+//var users = require('login-mongo');
 
 var home = require('./routes/index');
 var example = require('./routes/example');

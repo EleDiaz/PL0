@@ -1,37 +1,68 @@
 extends layout
 
 block content
-  .contents
-    .sideBar
-      .sideBar__section#fileStaticExample
-        .sideBar__item Ejemplos por defecto
-        .sideBar__item.selected.example Example 1
-        .sideBar__item.example Example 2
-      .sideBar__section
-        .sideBar__item Ejemplos guardados
-        #fileServerExample
-
-    div
-      .contents
-        .leftCode
-          .contents
-            .rightAlign
-              p Introduce algún código
-            .leftAlign
-              button(type="button").btn#load Load 
-              button(type="button").btn#run Run 
-            
-          #editor.codeEditor
-        .rightTree
-          p Arbol generado:
-          #treeGenerate
-      .results
-        h3 Código generado
+  .content
+    .text-center.pagination-centered
+      h1 Compile
+  .col-sm-2
+    nav.navbar.navbar-default.sidebar(role='navigation')
+        .container-fluid
+          .navbar-header
+            button.navbar-toggle(type='button', data-toggle='collapse', data-target='#bs-sidebar-navbar-collapse-1')
+              span.sr-only Toggle navigation
+              span.icon-bar
+              span.icon-bar
+              span.icon-bar
+          #bs-sidebar-navbar-collapse-1.collapse.navbar-collapse
+            ul.nav.navbar-nav
+              li.active
+                a(href='#')
+                  | Home
+                  span.pull-right.hidden-xs.showopacity.glyphicon.glyphicon-home(style='font-size:16px;')
+              li
+                a(href='#')
+                  | Libros
+                  span.pull-right.hidden-xs.showopacity.glyphicon.glyphicon-th-list(style='font-size:16px;')
+              li
+                a(href='#')
+                  | Tags
+                  span.pull-right.hidden-xs.showopacity.glyphicon.glyphicon-tags(style='font-size:16px;')
+  .col-sm-10
+    // Panel de código PL0
+    .panel.panel-default.col-sm-6
+      .panel-heading
+        h3.panel-title.text-center Código en PLØ
+      .panel-body
+        #editor.codeEditor
+      .panel-footer
+        button(type="button").btn#load Load
+        button(type="button").btn#save Save 
+        button(type="button").btn#run Run 
+    
+    // Panel de código resultado
+    .panel.panel-default.col-sm-5.col-sm-offset-1
+      .panel-heading
+        h3.panel-title.text-center Código en JavaScript
+      .panel-body
         #resultCode.codeEditor
-        
-        
+      .panel-footer
+        button(type="button").btn#donwload Download
+  
+    // Panel de código resultado
+    .panel.panel-default.col-sm-12
+      .panel-heading
+        h3.panel-title.text-center Árbol generado
+      .panel-body
+        #treeGenerate.codeEditor
+      .panel-footer
+        button(type="button").btn#donwload Download
+        //.rightTree
+          //p Arbol generado:
+          //#treeGenerate
+      //.results
+        //h3 Código generado
+        //#resultCode.codeEditor
       
-
 block otherScripts
   script(src="/javascripts/src-noconflict/ace.js" charset="utf-8")
   script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js", charset="utf-8")

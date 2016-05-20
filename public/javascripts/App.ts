@@ -34,9 +34,9 @@ class App {
   }
 
   setUpEditor(editor : AceAjax.Editor) : void {
-    editor.setTheme("ace/theme/solarized_dark")
-    editor.getSession().setMode("ace/mode/haskell")
-    editor.setFontSize("20px")
+    editor.setTheme("ace/theme/eclipse")
+    editor.getSession().setMode("ace/mode/javascript")
+    editor.setFontSize("12px")
   }
 
   setUpRunButton() : void {
@@ -115,7 +115,6 @@ class App {
 
 $(document).ready(() => {
   let app = new App()
-
   if (window.localStorage && localStorage.getItem(NAME_STORAGE)) {
     app.editor.setValue(localStorage.getItem(NAME_STORAGE));
   }
