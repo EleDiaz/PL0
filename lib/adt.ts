@@ -81,6 +81,7 @@ export class FunctionBlock extends Block {
       this.name = name
       this.params = params
     }
+
 }
 // END Block
 
@@ -157,6 +158,11 @@ export class Apply extends Base {
       this.name = name
       this.params = params
     }
+}
+
+export enum BasicTypes {
+	Int,
+	Arr
 }
 
 export class Literal extends Base {

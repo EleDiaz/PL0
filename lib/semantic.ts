@@ -23,21 +23,24 @@ class SymbolTable {
     if (this.symbolTable[elem["name"]]) {
         console.log("Warning: Overwriting variable");
     }
-    this.symbolTable[elem["name"]] = type //Object.create(elem.name, {type: type})
+	this.symbolTable[elem["name"]] = type //Object.create(elem.name, {type: type})
   }
 }
 
 export let semantic = (tree : ADT.Program) => {
   tree.eachBlockPre(generateSymbolTable, null)
-};
+}
 
 let generateSymbolTable = (block : ADT.Block, symbolTable) : SymbolTable => {
     let baseSymbolTable = new SymbolTable()
     symbolTable && (baseSymbolTable.father = symbolTable)
+    if (block instanceof ADT.FunctionBlock) {
+        block.params.map((varE) => baseSymbolTable.addToSymbol(varE, "Param"))
+    }
     block.variables.map((varE) => baseSymbolTable.addToSymbol(varE, "Var"))
     block.constants.map((varE) => baseSymbolTable.addToSymbol(varE, "Const"))
     block.functions.map((varE) => baseSymbolTable.addToSymbol(varE, "Function"))
-    block["symbolTable"] = baseSymbolTable;
+    block["symbolTable"] = baseSymbolTable
     console.log(baseSymbolTable)
     return baseSymbolTable
 };
