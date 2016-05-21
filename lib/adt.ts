@@ -1,7 +1,8 @@
 
 export class Base {
     // Location of code in file
-    location : Location
+    location
+
     constructor(location) {
       this.location = location;
     }
@@ -13,25 +14,23 @@ export class Base {
     }
 }
 
-// BEGIN Block
 export class Block extends Base {
-    variables : [Var]
-    constants : [Const]
-    functions : [FunctionBlock]
-    main : Block
+    childrens: [Expresion]
 
-    constructor(location, variables, constants, functions, main) {
+    constructor(location, expresion : [Expresion]) {
       super(location)
-      this.variables = variables
-      this.constants = constants
-      this.functions = functions
-      this.main = main
+      this.childrens = expresion
     }
-
+    /*
     eachBlockPre(callbackAction : (program : Block, any) => any, args : any) {
       let newArgs = callbackAction(this, args)
       this.functions.map(fun => fun.eachBlockPre(callbackAction, newArgs))
      }
+     */
+}
+
+export class Expresion extends Base {
+
 }
 
 // Basic program is a list of blocks

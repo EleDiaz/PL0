@@ -1,16 +1,9 @@
-var a;
+let mut hola : Typo = 5
 
-function ups(); {
-  return 5;
-};
-
-function hola(); {
-  while(5) do {};
-};
-
-function hola(); {
-  5+5
-};
-{
-if 0 then 0 else 0
+fun hola : a:Var  b: TII -> Hola {
+	let a : Int = 5
+	if 0 then false else other
+	while 0 {
+		0
+	}
 }
