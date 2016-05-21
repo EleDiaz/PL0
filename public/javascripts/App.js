@@ -23,6 +23,7 @@ class App {
         this.changeExamples();
         this.setUpRunButton();
         this.setUpLoadButton();
+        this.setUpSaveButton();
     }
 
     setUpJade(examples) {
@@ -38,12 +39,6 @@ class App {
         editor.setDisplayIndentGuides(true);
         editor.setHighlightActiveLine(true);
         editor.$blockScrolling = Infinity
-    }
-
-    dumpFile (filename) {
-      $.get(filename), (data) => {
-        this.editor.setValue (data)
-      };
     }
 
     setUpRunButton() {
@@ -65,7 +60,16 @@ class App {
 
     setUpSaveButton() {
         $("#save").click(() => {
-            // TODO: Llevar a cabo la peticion al servidor y guardar
+            var name = $("#inputCodeName").val();
+            if (name) {
+              $("#formCodeName").removeClass ("has-error");
+              var code = this.editor.getValue();
+              this.saveCode (name);
+            }
+            else {
+              $("#formCodeName").addClass ("has-error");
+              $("#inputCodeName").focus();
+            }
         });
     }
 
@@ -118,7 +122,7 @@ class App {
         }, 'json');
     }
 
-    saveCode(filename) {
+    saveCode(name) {
         let code = this.editor.getValue();
         $.get('/updateCode', { name: name, code: code }, (result) => {
             console.log("Code Saved!");

@@ -33,7 +33,13 @@ block content
       .panel-heading
         h3.panel-title.text-center Código en PLØ
       .panel-body
-        #editor.codeEditor
+        .row
+          .text-center
+            .form-group#formCodeName
+              label.control-label(for="inputCodeName") Name
+              input#inputCodeName.form-control(type= 'text')
+        .row
+          #editor.codeEditor
       .panel-footer
         div.wrapper
           button(type="button").btn#load Load  

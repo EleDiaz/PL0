@@ -26,7 +26,7 @@ router.post('/register', (req, res) => {
                 if (err) {
                   return next(err);
                 }
-                res.redirect('/genHelloWorld');
+                res.redirect('/createHelloWorld');
             });
         });
     });
@@ -61,10 +61,14 @@ router.get('/saveCode', (req, res) => {
 });
 
 router.get('/updateCode', (req, res) => {
+  console.log("1");
   let query = Code.updateCode (req.user, req.query.name, req.query.code);
+  console.log("2");
   Promise.all([query]).then((value) => {
     res.send ({result: true});
+    console.log("3");
   });
+  console.log("4");
 });
 
 router.get('/getCode', (req, res) => {
@@ -81,8 +85,8 @@ router.get('/getListOfCodes', (req, res) => {
   });
 });
 
-router.get('/genHelloWorld', (req, res) => {
-  let query = Code.genHelloWorld (req.user);
+router.get('/createHelloWorld', (req, res) => {
+  let query = Code.createHelloWorld (req.user);
   Promise.all([query]).then((value) => {
     res.redirect('/');
   });

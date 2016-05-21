@@ -56,14 +56,18 @@ app.use('/', home);
 //app.use('/about', about);
 //app.use('/compile', compile);
 
+// mongoose
+var db = mongoose.createConnection('mongodb://localhost/passport_local_mongoose_express4');
+var userSchema = require('./model/user');
+var User = db.model ('User', userSchema);
 // Passport config
-var User = require('./model/user');
+//var User = require('./model/user');
 passport.use(new localStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 // mongoose
-mongoose.connect('mongodb://localhost/passport_local_mongoose_express4');
+// mongoose.createConnection('mongodb://localhost/passport_local_mongoose_express4');
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
