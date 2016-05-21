@@ -22,9 +22,11 @@ class App {
         this.changeExamples();
         this.setUpRunButton();
     }
+
     setUpJade(examples) {
         $("#fileServerExample").html(template({ examples: ["file1", "file2"] }));
     }
+
     setUpEditor(editor) {
         editor.setTheme("ace/theme/eclipse");
         //editor.setTheme("ace/theme/merbivore");
@@ -35,6 +37,7 @@ class App {
         editor.setHighlightActiveLine(true);
         editor.$blockScrolling = Infinity
     }
+
     setUpRunButton() {
         $("#run").click(() => {
             if (window.localStorage) {
@@ -51,11 +54,13 @@ class App {
             // TODO: Llevar acabo la peticion al servidor
         });
     }
+
     setUpSaveButton() {
         $("#load").click(() => {
             // TODO: Llevar a cabo la peticion al servidor y guardar
         });
     }
+
     changeExamples() {
         let lastChecked;
         $('.example').each((ix, elem) => {
@@ -71,6 +76,7 @@ class App {
             });
         });
     }
+
     getFiles() {
         $.get('/getfiles', {}, (data) => {
             console.log("mis datos" + data.files);
@@ -80,12 +86,14 @@ class App {
             this.changeExamples();
         });
     }
+
     getFileContents(filename) {
         $.get('/getCsvfile', { csvfile: filename }, (data) => {
             console.log("Recibo: " + data);
             this.editor.setValue(data.content);
         }, 'json');
     }
+    
     saveFile(filename) {
         let data = this.editor.getValue();
         $.get('/sendCsvfile', { name: name, content: data }, (data) => {

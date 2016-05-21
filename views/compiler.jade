@@ -35,9 +35,13 @@ block content
       .panel-body
         #editor.codeEditor
       .panel-footer
-        button(type="button").btn#load Load
-        button(type="button").btn#save Save 
-        button(type="button").btn#run Run 
+        div.wrapper
+          button(type="button").btn#load Load  
+            span.glyphicon.glyphicon-cloud-upload
+          button(type="button").btn#save Save  
+            span.glyphicon.glyphicon-cloud-download
+          button(type="button").btn#run Compile  
+            span.glyphicon.glyphicon-fire
     
     // Panel de código resultado
     .panel.panel-default.col-sm-5.col-sm-offset-1
@@ -46,7 +50,9 @@ block content
       .panel-body
         #resultCode.codeEditor
       .panel-footer
-        button(type="button").btn#donwload Download
+        div.wrapper
+          button(type="button").btn#donwload Download  
+            span.glyphicon.glyphicon-cloud-download
   
     // Panel de código resultado
     .panel.panel-default.col-sm-12
@@ -55,13 +61,9 @@ block content
       .panel-body
         #treeGenerate.codeEditor
       .panel-footer
-        button(type="button").btn#donwload Download
-        //.rightTree
-          //p Arbol generado:
-          //#treeGenerate
-      //.results
-        //h3 Código generado
-        //#resultCode.codeEditor
+        div.wrapper
+          button(type="button").btn#donwload Download  
+            span.glyphicon.glyphicon-cloud-download
       
 block otherScripts
   script(src="/javascripts/src-noconflict/ace.js" charset="utf-8")

@@ -19,6 +19,11 @@ html(lang='es')
     link(rel='stylesheet', href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css")
     link(rel='stylesheet', href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css")
   body
+    if (error && error.length > 0)
+      br
+      h4.error-msg= error
+      br
+      
     .navbar.navbar-inverse.navbar-fixed-top
       .container
         .navbar-header
@@ -35,12 +40,19 @@ html(lang='es')
             li
               a(href="/About") About
           ul.nav.navbar-nav.navbar-right
-            li
-              a(href="/Examples") Sign Up  
-                span.glyphicon.glyphicon-user
-            li
-              a(href="/About") Login  
-                span.glyphicon.glyphicon-log-in
+            if (user)
+              li
+                a(href="#") You are currently logged in as #{user.username}
+              li
+                a(href="/logout") Logout  
+                  span.glyphicon.glyphicon-log-out
+            if (!user)
+              li
+                a(href="/login") Login  
+                  span.glyphicon.glyphicon-log-in
+              li
+                a(href="/register") Sign Up  
+                  span.glyphicon.glyphicon-user
     .row          
       block titleblock
     .row

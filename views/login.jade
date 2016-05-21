@@ -1,0 +1,22 @@
+extends layout
+
+block content
+  .container
+    .text-center
+      h1 Login Page
+    br
+    .row
+      .col-md-offset-4.col-md-4
+        div.form-login
+          h4.login-title Welcome back to PLØ 
+          form(role='form', action="/login",method="post")
+            .form-group
+                input.form-control(type='text', name="username", placeholder='Username')
+            .form-group
+              input.form-control(type='password', name="password", placeholder='Password')
+            div.wrapper
+              button.btn.btn-default(type='submit') Login  
+                span.glyphicon.glyphicon-log-in
+              &nbsp;
+              a(href='/')
+                button.btn.btn-primary(type="button") Cancel
