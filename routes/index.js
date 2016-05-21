@@ -1,3 +1,5 @@
+"use strict"
+
 var express = require('express');
 var passport = require('passport');
 var User = require('../model/user');
@@ -14,17 +16,17 @@ router.get('/register', (req, res)  => {
 });
 
 router.post('/register', (req, res) => {
-    User.register(new User({ username : req.body.username }), req.body.password, (err, user) = > {
+    User.register(new User({ username : req.body.username }), req.body.password, (err, user) => {
         if (err) {
-            return res.render('register', { error : error.message });
+          return res.render('register', { error : error.message });
         }
 
         passport.authenticate('local')(req, res, () => {
             req.session.save( (err) => {
                 if (err) {
-                    return next(err);
+                  return next(err);
                 }
-                res.redirect('/');
+                res.redirect('/genHelloWorld');
             });
         });
     });
@@ -76,6 +78,13 @@ router.get('/getListOfCodes', (req, res) => {
   let query = Code.getListOfCodes (req.user);
   Promise.all([query]).then((value) => {
     res.send ({result: value});
+  });
+});
+
+router.get('/genHelloWorld', (req, res) => {
+  let query = Code.genHelloWorld (req.user);
+  Promise.all([query]).then((value) => {
+    res.redirect('/');
   });
 });
 

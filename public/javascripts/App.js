@@ -6,6 +6,7 @@ each example in examples
   .sideBar__item.example= example
 `;
 let template = jade.compile(buttonsTemplate, {});
+
 // Main class
 class App {
     constructor() {
@@ -21,6 +22,7 @@ class App {
         // TODO: this.setUpJade()
         this.changeExamples();
         this.setUpRunButton();
+        this.setUpLoadButton();
     }
 
     setUpJade(examples) {
@@ -38,6 +40,12 @@ class App {
         editor.$blockScrolling = Infinity
     }
 
+    dumpFile (filename) {
+      $.get(filename), (data) => {
+        this.editor.setValue (data)
+      };
+    }
+
     setUpRunButton() {
         $("#run").click(() => {
             if (window.localStorage) {
@@ -48,7 +56,7 @@ class App {
             $.get("/compile", { file: this.editor.getValue() }, (data, status) => {
                 if (typeof (data.result) == 'string') {
                     this.resultCode.setValue(data.result);
-                    $("#resultCode").show();
+                    //$("#resultCode").show();
                 }
             }, 'json');
             // TODO: Llevar acabo la peticion al servidor
@@ -56,8 +64,24 @@ class App {
     }
 
     setUpSaveButton() {
-        $("#load").click(() => {
+        $("#save").click(() => {
             // TODO: Llevar a cabo la peticion al servidor y guardar
+        });
+    }
+
+    setUpLoadButton() {
+        $("#load").click(() => {
+            $("#inputfile").trigger ('click');
+            $("#inputfile").change ((evt) => {
+              var filename = evt.target.files[0];
+              if (filename) {
+                var reader = new FileReader ();
+                reader.onload = (e) => {
+                  this.editor.setValue (e.target.result);
+                }
+                reader.readAsText(filename);
+              }
+            });
         });
     }
 
@@ -77,7 +101,7 @@ class App {
         });
     }
 
-    getFiles() {
+    getListOfCodes() {
         $.get('/getfiles', {}, (data) => {
             console.log("mis datos" + data.files);
             this.setUpJade(data.files); // TODO
@@ -87,18 +111,19 @@ class App {
         });
     }
 
-    getFileContents(filename) {
-        $.get('/getCsvfile', { csvfile: filename }, (data) => {
-            console.log("Recibo: " + data);
-            this.editor.setValue(data.content);
+    getCode (name) {
+        $.get('/getCode', { name: name }, (result) => {
+            console.log("Resultado: " + result);
+            this.editor.setValue(result.code);
         }, 'json');
     }
-    
-    saveFile(filename) {
-        let data = this.editor.getValue();
-        $.get('/sendCsvfile', { name: name, content: data }, (data) => {
-            console.log("File Saved!");
+
+    saveCode(filename) {
+        let code = this.editor.getValue();
+        $.get('/updateCode', { name: name, code: code }, (result) => {
+            console.log("Code Saved!");
         }, 'json');
+        // Actualizar lista de códigos
     }
 }
 $(document).ready(() => {
