@@ -1,26 +1,37 @@
 var express = require('express');
-var router = express.Router();
 
-/* GET create user */
-router.post('/createuser', function(req, res) {
-  users.add(req.body.email, req.body.user, req.body.pass, function(err, success) {
-    return res.end(JSON.stringify({
-      error: err,
-      success: success
-    }));
-  });
+
+router.get('/', function (req, res) {
+    res.render('index', { user : req.user });
 });
 
-router.post('/logintry', function(req, res) {
-  users.checkPassword(req.body.user, req.body.pass, function(success) {
-    if (success) {
-      req.session.user = req.body.user;
-      return res.redirect('/app');
-    } else {
-      req.session.user = void 0;
-      return res.redirect('/login.html');
-    }
-  });
+router.get('/register', function(req, res) {
+    res.render('register', { });
+});
+
+router.post('/register', function(req, res) {
+    Account.register(new User({ username : req.body.username }), req.body.password, function(err, user) {
+        if (err) {
+            return res.render('register', { user : user });
+        }
+
+        passport.authenticate('local')(req, res, function () {
+            res.redirect('/');
+        });
+    });
+});
+
+router.get('/login', function(req, res) {
+    res.render('login', { user : req.user });
+});
+
+router.post('/login', passport.authenticate('local'), function(req, res) {
+    res.redirect('/');
+});
+
+router.get('/logout', function(req, res) {
+    req.logout();
+    res.redirect('/');
 });
 
 module.exports = router;
