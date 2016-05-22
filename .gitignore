@@ -46,3 +46,5 @@ jspm_packages
 
 # Database directory
 data/db/*
+
+data
