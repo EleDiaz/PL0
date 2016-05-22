@@ -9,13 +9,6 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var localStrategy = require('passport-local').Strategy;
 
-// Routes
-var home = require('./routes/index');
-//var example = require('./routes/example');
-//var about = require('./routes/about');
-var compile = require('./routes/compile');
-//var user = require('./routes/users');
-
 var app = express();
 
 app.set('port', (process.env.PORT || 5000));
@@ -50,24 +43,20 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', home);
-//app.use('/features', home);
-//app.use('/examples', example);
-//app.use('/about', about);
-app.use('/compile', compile);
+// Create connection mongoose for users
+var User = require('./model/user');
 
-// mongoose
-var db = mongoose.createConnection('mongodb://localhost/passport_local_mongoose_express4');
-var userSchema = require('./model/user');
-var User = db.model ('User', userSchema);
 // Passport config
-//var User = require('./model/user');
 passport.use(new localStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-// mongoose
-// mongoose.createConnection('mongodb://localhost/passport_local_mongoose_express4');
+// Routes
+var home = require('./routes/index');
+var compile = require('./routes/compile');
+
+app.use('/', home);
+app.use('/compile', compile);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
