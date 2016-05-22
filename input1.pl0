@@ -1,9 +1,11 @@
 let mut hola : Typo = 5
 
-fun hola : a:Var  b: TII -> Hola {
-	let a : Int = 5
-	if 0 then false else other
-	while 0 {
-		0
-	}
+fun hola : a:Var  b: TII -> Hola
+    "Este es mi comentario"
+{
+    5+56
+
+    4+9
+
+    let mut hola : Char= 5
 }
