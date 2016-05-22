@@ -13,7 +13,7 @@ var localStrategy = require('passport-local').Strategy;
 var home = require('./routes/index');
 //var example = require('./routes/example');
 //var about = require('./routes/about');
-//var compile = require('./routes/compile');
+var compile = require('./routes/compile');
 //var user = require('./routes/users');
 
 var app = express();
@@ -54,7 +54,7 @@ app.use('/', home);
 //app.use('/features', home);
 //app.use('/examples', example);
 //app.use('/about', about);
-//app.use('/compile', compile);
+app.use('/compile', compile);
 
 // mongoose
 var db = mongoose.createConnection('mongodb://localhost/passport_local_mongoose_express4');

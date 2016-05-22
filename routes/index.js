@@ -74,7 +74,7 @@ router.get('/updateCode', (req, res) => {
 router.get('/getCode', (req, res) => {
   let query = Code.getCode (req.user, req.query.name);
   Promise.all([query]).then((value) => {
-    res.send ({result: value});
+    res.send ({result: value[0]});
   });
 });
 

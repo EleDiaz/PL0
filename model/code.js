@@ -48,7 +48,7 @@ const updateCode = (user, name, code) => {
 
 // Get code by the name
 const getCode = (user, name) => {
-  mongoose.createConnection (mongoDB + user.username);
+  var conn = mongoose.createConnection (mongoDB + user.username);
   var model = conn.model ("code", codeSchema);
   return model.findOne ({ name: name }, (err, result) => {
     if (err) { console.log ("Error on get code " + err);}
@@ -60,12 +60,13 @@ const getCode = (user, name) => {
 
 // Get all codes by the user
 const getListOfCodes = (user) => {
-  conn = mongoose.createConnection (mongoDB + user.username);
+  var conn = mongoose.createConnection (mongoDB + user.username);
   var model = conn.model ("code", codeSchema);
   return model.find ({}, (err, result) => {
     if (err) { console.log ("Error on get code " + err);}
   }).then ((value) => {
     conn.close();
+    return value.map((obj) => { return obj.name; });
   });
 };
 

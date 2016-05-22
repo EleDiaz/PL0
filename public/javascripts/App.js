@@ -20,10 +20,11 @@ class App {
         this.editor.resize();
         this.resultCode.resize();
         // TODO: this.setUpJade()
-        this.changeExamples();
+        //this.changeExamples();
         this.setUpRunButton();
         this.setUpLoadButton();
         this.setUpSaveButton();
+        this.loadListOfCodes();
     }
 
     setUpJade(examples) {
@@ -43,6 +44,7 @@ class App {
 
     setUpRunButton() {
         $("#run").click(() => {
+            console.log ("Click");
             if (window.localStorage) {
                 console.log("Saved in localStorage");
                 window.localStorage.setItem(NAME_STORAGE, this.editor.getValue());
@@ -89,6 +91,40 @@ class App {
         });
     }
 
+    loadListOfCodes () {
+        //$('#menuSideBar').empty();  // Elimina los elementos
+
+        $.get("/getListOfCodes", {}, (data) => {
+          data.result[0].forEach ((name) => {
+            this.createItemMenu (name);
+          });
+        });
+    }
+
+    createItemMenu (name) {
+      var li = $('<li/>');
+
+      var a = $('<a/>', {
+        text: name,
+        //href: "javascript:this.getCode(" +  name + ");"
+        href: "javascript:void(0);"
+      });
+      // Evento al hacer click
+      a.click(() => {
+        this.getCode(name);
+      });
+      li.append (a);
+
+      var icon = $('<span/>', {
+        'class': 'pull-right hidden-xs showopacity glyphicon glyphicon-file',
+        'style': 'font-size:16px;'
+      });
+      a.append(icon);
+
+      li.appendTo('#menuSideBar');
+    }
+
+/*
     changeExamples() {
         let lastChecked;
         $('.example').each((ix, elem) => {
@@ -114,11 +150,11 @@ class App {
             this.changeExamples();
         });
     }
-
+*/
     getCode (name) {
-        $.get('/getCode', { name: name }, (result) => {
-            console.log("Resultado: " + result);
-            this.editor.setValue(result.code);
+        $.get('/getCode', { name: name }, (data) => {
+            $("#inputCodeName").val(data.result.name);
+            this.editor.setValue(data.result.code);
         }, 'json');
     }
 
@@ -127,7 +163,6 @@ class App {
         $.get('/updateCode', { name: name, code: code }, (result) => {
             console.log("Code Saved!");
         }, 'json');
-        // Actualizar lista de códigos
     }
 }
 $(document).ready(() => {
