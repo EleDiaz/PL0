@@ -92,7 +92,7 @@ class App {
     }
 
     loadListOfCodes () {
-        //$('#menuSideBar').empty();  // Elimina los elementos
+        $('#menuSideBar').empty();  // Elimina los elementos
 
         $.get("/getListOfCodes", {}, (data) => {
           data.result[0].forEach ((name) => {
@@ -102,16 +102,23 @@ class App {
     }
 
     createItemMenu (name) {
-      var li = $('<li/>');
+      var li = $('<li/>', {
+        'id': name
+      });
 
       var a = $('<a/>', {
         text: name,
-        //href: "javascript:this.getCode(" +  name + ");"
         href: "javascript:void(0);"
       });
       // Evento al hacer click
       a.click(() => {
         this.getCode(name);
+
+        $("#menuSideBar li").each((_, element) =>{
+          $(element).removeClass("active");
+        });
+
+        $("#" + name).addClass("active");
       });
       li.append (a);
 
