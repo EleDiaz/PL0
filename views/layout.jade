@@ -15,24 +15,50 @@ html(lang='es')
   head
     title PLØ - #{select}
     link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/sidebar.css')
+    link(rel='stylesheet', href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css")
+    link(rel='stylesheet', href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css")
   body
-    .siteHeader
-      .siteHeader__section
-        label Usuario
-        input(type:"text", name:"username", placeholder="Usuario")
-        label Contraseña
-        input(type:"password", name:"password", placeholder="Contraseña")
-    #container.col
-    .centeredPrompt
-      .centeredPrompt__item.centeredPromptLabel
-        h1 Welcome to PLØ!
-
-      .tabs
-        +selectedTab('Features')
-        +selectedTab('Examples')
-        +selectedTab('About')
-
+    if (error && error.length > 0)
+      br
+      h4.error-msg= error
+      br
+      
+    .navbar.navbar-inverse.navbar-fixed-top
+      .container
+        .navbar-header
+          button.navbar-toggle(type="button", data-toggle='collapse', data-target='.navbar-collapse')
+            span.sr-only
+            span.iconbar
+            span.iconbar
+            span.iconbar
+          a.navbar-brand(href="/") PLØ
+        .navbar-collapse.collapse
+          ul.nav.navbar-nav
+            li
+              a(href="/Examples") Compile
+            li
+              a(href="/About") About
+          ul.nav.navbar-nav.navbar-right
+            if (user)
+              li
+                a(href="#") You are currently logged in as #{user.username}
+              li
+                a(href="/logout") Logout  
+                  span.glyphicon.glyphicon-log-out
+            if (!user)
+              li
+                a(href="/login") Login  
+                  span.glyphicon.glyphicon-log-in
+              li
+                a(href="/register") Sign Up  
+                  span.glyphicon.glyphicon-user
+    .row          
+      block titleblock
+    .row
       block content
 
   block otherScripts
-  //
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js", charset="utf-8")
+    script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/jade/1.11.0/jade.min.js", charset="utf-8")

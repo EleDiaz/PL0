@@ -3,13 +3,11 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var sassMiddleware = require('node-sass-middleware');
-var users = require('login-mongo');
-
-var home = require('./routes/index');
-var example = require('./routes/example');
-var about = require('./routes/about');
-var compile = require('./routes/compile');
-var user = require('./routes/users');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
+var passport = require('passport');
+var localStrategy = require('passport-local').Strategy;
 
 var app = express();
 
@@ -33,12 +31,31 @@ app.set('view engine', 'jade');
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(require('express-session')({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Create connection mongoose for users
+var User = require('./model/user');
+
+// Passport config
+passport.use(new localStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+// Routes
+var home = require('./routes/index');
+var compile = require('./routes/compile');
+
 app.use('/', home);
-app.use('/features', home);
-app.use('/examples', example);
-app.use('/about', about);
 app.use('/compile', compile);
 
 // catch 404 and forward to error handler
