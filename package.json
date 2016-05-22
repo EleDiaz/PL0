@@ -18,6 +18,6 @@
   "devDependencies": {
     "chai": "^3.5.0",
     "node-sass-middleware": "^0.9.8",
-    "pegjs-backtrace": "^0.1.1",
+    "pegjs-backtrace": "^0.1.1"
   }
 }
