@@ -1,11 +1,12 @@
 let mut hola : Typo = 5
 
-fun hola : a:Var  b: TII -> Hola
+fun holaFun : a:Var  b: TII -> Hola
     "Este es mi comentario"
 {
     5+56
 
     4+9
 
-    let mut hola : Char= 5
+    let mut holavar2 : Char= 5
+    hola = 6
 }

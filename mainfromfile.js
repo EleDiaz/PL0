@@ -19,7 +19,7 @@ fs.readFile(fileName, 'utf8', function (err,input) {
     var tracer = new Tracer(input);
     // try {
         var r = PEG.parse(input, {tracer: tracer});
-        //semantic.semantic(r);
+        semantic.semantic(r);
         console.log(util.inspect(r, {depth: null}));
     // } catch (e) {
     //     console.log(tracer.getBacktraceString());
