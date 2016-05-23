@@ -1,4 +1,5 @@
-/// <reference path="../../typings/main.d.ts" />
+/*jshint esversion: 6 */
+/*jshint node:true */
 // Clave con la que se almacena una copia en localStorage
 const NAME_STORAGE = "textedit";
 const buttonsTemplate = `
@@ -39,7 +40,7 @@ class App {
         editor.setShowPrintMargin(false);
         editor.setDisplayIndentGuides(true);
         editor.setHighlightActiveLine(true);
-        editor.$blockScrolling = Infinity
+        editor.$blockScrolling = Infinity;
     }
 
     setUpRunButton() {
@@ -169,7 +170,10 @@ class App {
         let code = this.editor.getValue();
         $.get('/updateCode', { name: name, code: code }, (result) => {
             console.log("Code Saved!");
-        }, 'json');
+        }, 'json')
+        .done((_) =>
+            this.loadListOfCodes()
+        );
     }
 }
 $(document).ready(() => {
