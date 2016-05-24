@@ -1,0 +1,12 @@
+let mut holavar : Int = 4
+
+let constante : Int = 1
+
+fun hola : h : Int -> Int {}
+
+let mut holavar2 : Int = 4
+
+fun hola2 : h : Int -> Int {}
+
+fun hola3 : h : Int -> Int {}
+
