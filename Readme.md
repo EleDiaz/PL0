@@ -6,6 +6,15 @@
 - [ ] desarrollar todo usando TDD de verdad, la cosa se pone chunga
 	  si meto lambdas, ADT y tipado
 
+## Gramatica del lenguaje
+A nivel básico un existen las declaraciones que son:
+- variables (let mut)
+- Constantes (let)
+- Funciones (fun)  -- TODO: la sintaxis quizas deba mejorar
+
+Dentro de cada una de las declaraciones se puede escribir cualquier expresión
+- 
+
 
 ## Tools used
 
