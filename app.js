@@ -90,4 +90,8 @@ app.use(function(err, req, res, next) {
 });
 
 
+// Inicializar base de datos
+var Code = require('./model/code');
+Code.initDb ();
+
 module.exports = app;

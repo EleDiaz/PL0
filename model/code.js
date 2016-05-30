@@ -11,6 +11,7 @@ var codeSchema = new Schema({
 
 //const modelCode = mongoose.model("code", codeSchema);
 const mongoDB = 'mongodb://localhost/';
+const GUEST = "guest";
 
 // Save code
 const saveCode = (user, name, code) => {
@@ -48,7 +49,13 @@ const updateCode = (user, name, code) => {
 
 // Get code by the name
 const getCode = (user, name) => {
-  var conn = mongoose.createConnection (mongoDB + user.username);
+  if (user != "") {
+    var conn = mongoose.createConnection (mongoDB + user.username);
+  } else {
+    // Conexión invitado
+    var conn = mongoose.createConnection (mongoDB + GUEST);
+  }
+
   var model = conn.model ("code", codeSchema);
   return model.findOne ({ name: name }, (err, result) => {
     if (err) { console.log ("Error on get code " + err);}
@@ -60,9 +67,15 @@ const getCode = (user, name) => {
 
 // Get all codes by the user
 const getListOfCodes = (user) => {
-  var conn = mongoose.createConnection (mongoDB + user.username);
+  if (user != "") {
+    var conn = mongoose.createConnection (mongoDB + user.username);
+  } else {
+    // Conexión invitado
+    var conn = mongoose.createConnection (mongoDB + GUEST);
+  }
+
   var model = conn.model ("code", codeSchema);
-  return model.find ({}, (err, result) => {
+  return model.find ({}).sort('name').exec((err, result) => {
     if (err) { console.log ("Error on get code " + err);}
   }).then ((value) => {
     conn.close();
@@ -78,4 +91,46 @@ const createHelloWorld = (user) => {
   });
 }
 
-module.exports = {saveCode, updateCode, getCode, getListOfCodes, createHelloWorld};
+// Create examples and user guest
+const initDb = () => {
+
+  var examples = [
+    ["example 1", "1+1"],
+    ["example 2", "2+2"],
+    ["example 3", "3+3"],
+    ["example 4", "4+4"],
+    ["example 5", "5+5"],
+    ["example 6", "6+6"]
+  ];
+
+  examples.forEach ((example) => {
+    var conn = mongoose.createConnection (mongoDB + GUEST);
+    var model = conn.model ("code", codeSchema);
+
+    model.findOne({ 'name': example[0] }, (err, doc) => {
+      if (err) { console.log("Error on update code " + err);}
+      if (!doc) {
+        // Crear documento
+        var query = new model ({ name: example[0], code: example[1]});
+        query.save ((err) => {
+          if (err) {
+            console.log (console.log("Error on save code " + err));
+          }
+        }).then( (value) => {
+            conn.close();
+        });
+      } else {
+        // Actualizar documento
+        doc.code = example[1];
+        doc.save ();
+      }
+    }).then ((value) => {
+      conn.close();
+    });
+  });
+
+  return 1;
+}
+
+
+module.exports = {saveCode, updateCode, getCode, getListOfCodes, createHelloWorld, initDb, GUEST};

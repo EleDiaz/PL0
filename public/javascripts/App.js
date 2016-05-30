@@ -92,9 +92,10 @@ class App {
         });
     }
 
-    loadListOfCodes () {
+    loadListOfCodes (id) {
         $('#menuSideBar').empty();  // Elimina los elementos
 
+        var firstSelected = false;
         $.get("/getListOfCodes", {}, (data) => {
           data.result[0].forEach ((name) => {
             this.createItemMenu (name);
@@ -108,6 +109,7 @@ class App {
       });
 
       var a = $('<a/>', {
+        'id': "a_" + name,
         text: name,
         href: "javascript:void(0);"
       });
@@ -132,33 +134,6 @@ class App {
       li.appendTo('#menuSideBar');
     }
 
-/*
-    changeExamples() {
-        let lastChecked;
-        $('.example').each((ix, elem) => {
-            if ($(elem).hasClass("selected")) {
-                lastChecked = $(elem);
-            }
-            $(elem).click(() => {
-                //this.getCSVFile($(elem).html());
-                // Avoid errors of none selected
-                lastChecked && lastChecked.removeClass("selected");
-                $(elem).addClass("selected");
-                lastChecked = $(elem);
-            });
-        });
-    }
-
-    getListOfCodes() {
-        $.get('/getfiles', {}, (data) => {
-            console.log("mis datos" + data.files);
-            this.setUpJade(data.files); // TODO
-        }, 'json')
-            .done(() => {
-            this.changeExamples();
-        });
-    }
-*/
     getCode (name) {
         $.get('/getCode', { name: name }, (data) => {
             $("#inputCodeName").val(data.result.name);
@@ -171,9 +146,9 @@ class App {
         $.get('/updateCode', { name: name, code: code }, (result) => {
             console.log("Code Saved!");
         }, 'json')
-        .done((_) =>
-            this.loadListOfCodes()
-        );
+        .done((_) => {
+            this.loadListOfCodes();
+        });
     }
 }
 $(document).ready(() => {

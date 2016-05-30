@@ -6,7 +6,6 @@ var User = require('../model/user');
 var Code = require('../model/code');
 var router = express.Router();
 
-/* GET home page. */
 router.get('/', (req, res, next) => {
   res.render('index', { select: 'Features', user : req.user });
 });
@@ -72,14 +71,24 @@ router.get('/updateCode', (req, res) => {
 });
 
 router.get('/getCode', (req, res) => {
-  let query = Code.getCode (req.user, req.query.name);
+  var usuario = "";
+  if (req.user) {
+    usuario = req.user;
+  }
+
+  let query = Code.getCode (usuario, req.query.name);
   Promise.all([query]).then((value) => {
     res.send ({result: value[0]});
   });
 });
 
 router.get('/getListOfCodes', (req, res) => {
-  let query = Code.getListOfCodes (req.user);
+  var usuario = "";
+  if (req.user) {
+    usuario = req.user;
+  }
+
+  let query = Code.getListOfCodes (usuario);
   Promise.all([query]).then((value) => {
     res.send ({result: value});
   });
