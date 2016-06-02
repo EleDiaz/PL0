@@ -1,3 +1,15 @@
-fun functionExample : a : Int -> Int {
-
+fun functionExample(a : Int b)
+    "Esta funcion solo suma"
+{
+    a + b
 }
+
+fun functionTest(a b) "Test" {
+}
+
+
+fun functionTest2(a b) -> Int "Test" {
+}
+
+
+fun functionTest3(a:Int b:Char) -> String "Other Test" {}
