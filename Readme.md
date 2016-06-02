@@ -1,27 +1,19 @@
 # A project, A language
 
-## TODO List:
-- [ ] Favicon, seria el primero
-- [ ] Parser (PEG), generate ADT
-- [ ] desarrollar todo usando TDD de verdad, la cosa se pone chunga
-	  si meto lambdas, ADT y tipado
+## Gramática del lenguaje
+Declaraciones el lenguaje especificado permite crear es scripts compuestos principalmente 
+de los siguientes elementos:
 
-## Gramatica del lenguaje
-A nivel básico un existen las declaraciones que son:
-- variables (let mut)
-- Constantes (let)
+- Constantes, se definen usando la palabra clave `let nombreId : tipo = expresion`
+- variables, se definen usando la palabra clave `let mut nombreId : tipo = expresion`
 - Funciones (fun)  -- TODO: la sintaxis quizas deba mejorar
 
-Dentro de cada una de las declaraciones se puede escribir cualquier expresión
-- 
+
 
 
 ## Tools used
 
 There are used several languages
-- Typescript
-  - In /model and /lib
-  - npm -g i typings   // manage types of different packages used  
 - Javascript (ecma 6)
   - All project
 - Sass
