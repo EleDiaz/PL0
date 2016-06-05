@@ -14,12 +14,12 @@ class App {
         // Initialize editor
         this.editor = ace.edit("editor");
         this.setUpEditor(this.editor);
-        this.resultCode = ace.edit("resultCode");
-        this.setUpEditor(this.resultCode);
-        this.resultCode.setReadOnly(true);
-        this.resultCode.setValue("// Escriba un código y ejecute el compilador.");
+        this.treeGenerate = ace.edit("treeGenerate");
+        this.setUpEditor(this.treeGenerate);
+        this.treeGenerate.setReadOnly(true);
+        this.treeGenerate.setValue("// Escriba un código y ejecute el compilador.");
         this.editor.resize();
-        this.resultCode.resize();
+        this.treeGenerate.resize();
         // TODO: this.setUpJade()
         //this.changeExamples();
         this.setUpRunButton();
@@ -50,11 +50,11 @@ class App {
                 console.log("Saved in localStorage");
                 window.localStorage.setItem(NAME_STORAGE, this.editor.getValue());
             }
-            //$("#resultCode").hide();
+            //$("#treeGenerate").hide();
             $.get("/compile", { file: this.editor.getValue() }, (data, status) => {
                 if (typeof (data.result) == 'string') {
-                    this.resultCode.setValue(data.result);
-                    //$("#resultCode").show();
+                    this.treeGenerate.setValue(data.result);
+                    //$("#treeGenerate").show();
                 }
             }, 'json');
             // TODO: Llevar acabo la peticion al servidor
