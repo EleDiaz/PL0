@@ -1,0 +1,10 @@
+/*
+
+*/
+fun myWhile() {
+    "Litle test with while"
+    while(true) {
+        let val = False
+        while (val) {}
+    }
+}

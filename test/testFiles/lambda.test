@@ -1,4 +1,16 @@
-
-
-
-let lambda : TODO =  \a:Int b:Int -> a + b
+/*
+Program:
+  - Constant:
+    name: "lambda"
+    block:
+      Lambda:
+        params:
+           - a
+           - b
+        body:
+          Operation:
+            operand: "+"
+            left: a
+            right: b
+*/
+let lambda =  \a:Int b:Int -> a + b
