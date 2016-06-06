@@ -1,8 +1,11 @@
 "use strict";
+
 const util = require('util');
 const semantic = require('../lib/semantic');
+
 var Tracer = require('pegjs-backtrace');
 var PEG = require('../lib/pl0.js');
+
 exports.compileToAST = (text) => {
     try {
         return PEG.parse(text);
@@ -11,6 +14,7 @@ exports.compileToAST = (text) => {
         return e.toString();
     }
 };
+
 exports.compile = (text) => {
     var tracer = new Tracer(text);
     try {
@@ -20,7 +24,8 @@ exports.compile = (text) => {
     } catch (e) {
         console.log(tracer.getBacktraceString());
 
-        console.log(`Error en línea ${e.location.start.line} columna ${e.location.start.column}`);
+        //console.log(`Error en línea ${e.location.start.line} columna ${e.location.start.column}`);
         console.log(e);
+        return "" + e + `\n\tError en línea ${e.location.start.line} columna ${e.location.start.column}`;
     }
 };
