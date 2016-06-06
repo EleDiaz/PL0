@@ -4,7 +4,7 @@
 "use strict";
 const fs = require('fs');
 const chai = require('chai');
-const ADT = require('../lib/adt');
+const ADT = require('../lib/ast');
 const compiler = require('../model/compiler');
 let expect = chai.expect;
 
