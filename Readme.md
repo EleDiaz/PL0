@@ -1,13 +1,6 @@
 # A project, A language
 
 ## Gramática del lenguaje
-Declaraciones el lenguaje especificado permite crear es scripts compuestos principalmente 
-de los siguientes elementos:
-
-- Constantes, se definen usando la palabra clave `let nombreId : tipo = expresion`
-- variables, se definen usando la palabra clave `let mut nombreId : tipo = expresion`
-- Funciones (fun)  -- TODO: la sintaxis quizas deba mejorar
-
 Un programa consta de lista de declaraciones.
 
 ```haskell
@@ -201,61 +194,55 @@ EOL = $[\n\r]
 
 ```haskell
 // Tokens
-NAMEID        = _ $([a-z_][a-zA-Z_0-9']*) _
-TYPE          = _ $([A-Z_][a-zA-Z_0-9']*) _
-CHAR          = _ "'" . "'" _
-OP            = _ !("//" / "/*" / "*/")$[-+=*/&%$!@?^:_<>]+    _
+NUMBER        = _ digits:$[0-9]+ _ { return parseInt(digits, 10); }
+NAMEID        = _ id:$([a-z_][a-zA-Z_0-9']*) _ { return id }
+TYPE          = _ id:$([A-Z_][a-zA-Z_0-9']*) _ { return id }
+CHAR          = _ "'" c:. "'" _                { return c }
+OP            = _ !("//" / "/*" / "*/" / ASSIGN)op:$[-+=*/&%$!@?^:_<>]+    _ { return op }
 // Reserved words
-RESERVED = (FUNCTION / LET / LETMUT / IF / ELSE / THEN / WHILE / DO / LOOP / FOR / FALSE / TRUE)
+RESERVED = (FUNCTION / LET / LETMUT / IF / ELSE / THEN / WHILE / DO / LOOP / FOR / FALSE / TRUE / BREACK)
 
-BREACK        = _ "breack" _
-TRUE          = _ ("True" / "true") _
-FALSE         = _ ("False" / "false") _
-FUNCTION      = _ "fun" _
-MINOR         = _ "<" _
-GREATER       = _ ">" _
-DOTS          = _ ":" _
-COMMA         = _ "," _
-LAMBDA        = _ ("\\" / "λ") _
-RARROW        = _ ("->" / "→") _
-LARROW        = _ ("<-" / "←") _
-LET           = _ "let" _
-LETMUT        = _ LET "mut" _
-ASSIGN        = _ '=' _
-IF            = _ "if" _
-THEN          = _ "then" _
-ELSE          = _ "else" _
-WHILE         = _ "while" _
-DO            = _ "do" _
-LOOP          = _ "loop" _
-FOR           = _ "for" _
+BREACK        = _ "breack" _ { return "TODO" }
+TRUE          = _ ("True" / "true") _ { return true; }
+FALSE         = _ ("False" / "false") _ { return false; }
+FUNCTION      = _ "fun" _ { return "fun" }
+MINOR         = _ "<" _   { return "<" }
+GREATER       = _ ">" _   { return ">" }
+DOTS          = _ ":" _   { return ":" }
+COMMA         = _ "," _   { return "," }
+LAMBDA        = _ ("\\" / "λ") _   { return "\\" }
+RARROW        = _ ("->" / "→") _  { return "->" }
+LARROW        = _ ("<-" / "←") _  { return "->" }
+LET           = _ "let" _ { return "let" }
+LETMUT        = _ LET "mut" _ { return "let mut" }
+ASSIGN        = _ '=' _   { return "=" }
+IF            = _ "if" _  { return "if" }
+THEN          = _ "then" _ { return "then" }
+ELSE          = _ "else" _ { return "else" }
+WHILE         = _ "while" _ { return "while" }
+DO            = _ "do" _ { return "do" }
+LOOP          = _ "loop" _ { return "loop" }
+FOR           = _ "for" _  { return "for" }
 
-LEFTPAR       = _ "(" _
-RIGHTPAR      = _ ")" _
-LBRACKET      = _ "{" _  // There are problem with its
-RBRACKET      = _ "}" _
-LSQUARE       = _ "[" _
-RSQUARE       = _ "]" _
-
-ADD           = _ [+-] _
-MUL           = _ [*/] _
-COMP          = _ ("=="/"!="/"<="/">="/"<"/">") _
-
-ID            = _ $([a-zA-Z_][a-zA-Z_0-9]*) _
-
-NUMBER        = _ $[0-9]+ _
+LEFTPAR       = _ "(" _ { return "(" }
+RIGHTPAR      = _ ")" _ { return ")" }
+LBRACKET      = _ "{" _ { return "" } // There are problem with its
+RBRACKET      = _ "}" _ { return "" }
+LSQUARE       = _ "[" _ { return "[" }
+RSQUARE       = _ "]" _ { return "]" }
 ```
 
 
 
-
- Tools used
+## Tools used
 
 There are used several languages
 - Javascript (ecma 6)
   - All project
 - Sass
   - It is compiled with a middleware by server see **app.js**
+- pegjs-strip
+- pegjs-backtrace
 
 
 ## Types and ADT
@@ -284,9 +271,6 @@ Con mas detalle:
 
 DataTree NombreTipo (All a)
 	NameData Value (All a)
-
-Los llamo all y no any por no confundir con los cuantificadores existenciales, y mas
-bien representa un cuantificador universal.
 
 data NombreTipo (forall a) = Value a
 
